@@ -1,0 +1,1 @@
+exports.notesController = require('./notes.controller');
