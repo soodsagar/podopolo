@@ -30,7 +30,7 @@ TODO
 ## Installation
 ### Requirements
 * Node 
-	* this app was built on Node v16.18.1
+  * this app was built on Node v16.18.1
 * NPM 
 * Docker
 * Docker-compose
@@ -57,10 +57,10 @@ POST /api/auth/signup
 Request
 ```
 {
-	"user": {
-		"email": "hello@podopolo.com"
-		"password": "pass123"
-	}
+  "user": {
+    "email": "hello@podopolo.com"
+    "password": "pass123"
+  }
 }
 ```
 Response
@@ -68,9 +68,9 @@ Response
 HTTP 200 OK
 
 {
-	"user": {
-		"id": "00000000-0000-0000-0000-000000000000"
-	}
+  "user": {
+    "id": "00000000-0000-0000-0000-000000000000"
+  }
 }
 ```
 
@@ -81,10 +81,10 @@ POST /api/auth/login
 Request
 ```
 {
-	"user": {
-		"email": "hello@podopolo.com"
-		"password": "pass123"
-	}
+  "user": {
+    "email": "hello@podopolo.com"
+    "password": "pass123"
+  }
 }
 ```
 Response
@@ -92,9 +92,9 @@ Response
 HTTP 200 OK
 
 {
-	"user":  {
-		"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjlkNTVlMDcwL.y04dsem1a22v6Gs"
-	}
+  "user": {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjlkNTVlMDcwL.y04dsem1a22v6Gs"
+  }
 }
 ```
 
@@ -108,9 +108,9 @@ Headers: { Authorization: "Bearer: YOUR_TOKEN" }
 Request
 ```
 {
-	"note": {
-		"content": "this is my fancy note"
-	}
+  "note": {
+    "content": "this is my fancy note"
+  }
 }
 ```
 Response
@@ -118,17 +118,17 @@ Response
 HTTP 200 OK
 
 {
-    "note": [
-        {
-	        "_id": "990559821166beed09bca5f5"
-            "users": [
-                "640559821166beed09bca5f4"
-            ],
-            "content": "this is my fancy note",
-            "createdAt": "2023-03-06T03:10:27.616Z",
-            "updatedAt": "2023-03-06T03:10:27.616Z"
-        }
-    ]
+  "note": [
+    {
+      "_id": "990559821166beed09bca5f5"
+      "users": [
+          "640559821166beed09bca5f4"
+      ],
+      "content": "this is my fancy note",
+      "createdAt": "2023-03-06T03:10:27.616Z",
+      "updatedAt": "2023-03-06T03:10:27.616Z"
+    }
+  ]
 }
 ```
 
@@ -143,17 +143,17 @@ Response
 HTTP 200 OK
 
 {
-    "note": [
-        {
-	        "_id": "990559821166beed09bca5f5"
-            "users": [
-                "640559821166beed09bca5f4"
-            ],
-            "content": "this is my fancy note",
-            "createdAt": "2023-03-06T03:10:27.616Z",
-            "updatedAt": "2023-03-06T03:10:27.616Z"
-        }
-    ]
+  "note": [
+    {
+      "_id": "990559821166beed09bca5f5"
+      "users": [
+          "640559821166beed09bca5f4"
+      ],
+      "content": "this is my fancy note",
+      "createdAt": "2023-03-06T03:10:27.616Z",
+      "updatedAt": "2023-03-06T03:10:27.616Z"
+    }
+  ]
 }
 ```
 
@@ -169,17 +169,17 @@ Response
 HTTP 200 OK
 
 {
-    "note": [
-        {
-	        "_id": "990559821166beed09bca5f5"
-            "users": [
-                "640559821166beed09bca5f4"
-            ],
-            "content": "this is my fancy note",
-            "createdAt": "2023-03-06T03:10:27.616Z",
-            "updatedAt": "2023-03-06T03:10:27.616Z"
-        }
-    ]
+  "note": [
+    {
+      "_id": "990559821166beed09bca5f5"
+      "users": [
+          "640559821166beed09bca5f4"
+      ],
+      "content": "this is my fancy note",
+      "createdAt": "2023-03-06T03:10:27.616Z",
+      "updatedAt": "2023-03-06T03:10:27.616Z"
+    }
+  ]
 }
 ```
 
@@ -193,9 +193,9 @@ Headers: { Authorization: "Bearer: YOUR_TOKEN" }
 Request
 ```
 {
-	"note": {
-		"content": "this is my fancy UPDATED note"
-	}
+  "note": {
+    "content": "this is my fancy UPDATED note"
+  }
 }
 ```
 
@@ -212,9 +212,9 @@ Headers: { Authorization: "Bearer: YOUR_TOKEN" }
 Request
 ```
 {
-	"user": {
-		"id": "990559821166beed09bca5f4"
-	}
+  "user": {
+    "id": "990559821166beed09bca5f4"
+  }
 }
 ```
 Response
@@ -230,9 +230,9 @@ Headers: { Authorization: "Bearer: YOUR_TOKEN" }
 Request
 ```
 {
-	"note": {
-		"id": "990559821166beed09bca5f4"
-	}
+  "note": {
+    "id": "990559821166beed09bca5f4"
+  }
 }
 ```
 Response
@@ -240,17 +240,17 @@ Response
 HTTP 200 OK
 
 {
-    "note": [
-        {
-	        "_id": "990559821166beed09bca5f5"
-            "users": [
-                "640559821166beed09bca5f4"
-            ],
-            "content": "this is my fancy note",
-            "createdAt": "2023-03-06T03:10:27.616Z",
-            "updatedAt": "2023-03-06T03:10:27.616Z"
-        }
-    ]
+  "note": [
+    {
+      "_id": "990559821166beed09bca5f5"
+      "users": [
+          "640559821166beed09bca5f4"
+      ],
+      "content": "this is my fancy note",
+      "createdAt": "2023-03-06T03:10:27.616Z",
+      "updatedAt": "2023-03-06T03:10:27.616Z"
+    }
+  ]
 }
 ```
 
@@ -262,9 +262,9 @@ Headers: { Authorization: "Bearer: YOUR_TOKEN" }
 Request
 ```
 {
-	"note": {
-		"id": "20559821166beed09bca5f4"
-	}
+  "note": {
+    "id": "20559821166beed09bca5f4"
+  }
 }
 ```
 Response
