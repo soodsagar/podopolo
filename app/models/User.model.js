@@ -4,10 +4,6 @@ const jwt = require('jsonwebtoken');
 const secret = require('../config').secret;
 
 const UserSchema = new mongoose.Schema({
-  id: {
-    type: String,
-    unique: true, 
-  },
   email: {
     type: String, 
     lowercase: true, 
@@ -18,7 +14,7 @@ const UserSchema = new mongoose.Schema({
   },
   hash: String,
   salt: String,
-}, { timestamps: true });
+}, { timestamps: true, versionKey: false });
 
 UserSchema.methods.validPassword = function(password) {
   const hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
@@ -36,7 +32,7 @@ UserSchema.methods.createJWT = function() {
   exp.setDate(today.getDate() + 60);
 
   return jwt.sign({
-    id: this.id, // uses our uuid instead of mongodb object id, for extra security
+    id: this._id,
     exp: parseInt(exp.getTime() / 1000),
   }, secret);
 };

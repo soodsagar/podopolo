@@ -7,12 +7,11 @@ const rateLimiter = require('../middleware/rateLimiter');
 exports.createNote = async (req, res) => {
   try {
     const note = new Note();
-    note.id = uuid.v4();
     note.users = [req.user._id];
     note.content = req.body.note.content;
 
     const newNote = await Note.create(note);
-    res.json({ data: [{ id: newNote.id }] });
+    res.json({ note: [{ id: newNote._id }] });
 
   } catch (error) {
     console.log(error);
@@ -21,8 +20,8 @@ exports.createNote = async (req, res) => {
 
 exports.getNotes = async (req, res) => {
   try {
-    const notes = await Note.find({ users: { $in: [req.user._id] }});
-    res.json({ data: notes });
+    const notes = await Note.find({ users: { $in: [req.user.id] }});
+    res.json({ note: notes });
   } catch (error) {
     console.log(error);
   }
@@ -30,8 +29,8 @@ exports.getNotes = async (req, res) => {
 
 exports.getNoteById = async (req, res) => {
   try {
-    const note = await Note.findOne({ id: req.params.id });
-    res.json({ data: [ note ] });
+    const note = await Note.findById(req.params.id);
+    res.json({ note: [ note ] });
   } catch (error) {
     console.log(error);
   }
@@ -39,7 +38,7 @@ exports.getNoteById = async (req, res) => {
 
 exports.updateNoteById = async (req, res) => {
   try {
-    const note = await Note.findOneAndUpdate({ id: req.params.id }, {
+    const note = await Note.findByIdAndUpdate(req.params.id, {
       content: req.body.note.content,
     }, { new: true });
     if (note !== null) {
@@ -54,7 +53,7 @@ exports.updateNoteById = async (req, res) => {
 
 exports.deleteNoteById = async (req, res) => {
   try {
-    const note = await Note.deleteOne({ id: req.params.id });
+    const note = await Note.deleteOne({ _id: req.params.id });
     res.status(204).end();
   } catch (error) {
     console.log(error);
@@ -63,14 +62,14 @@ exports.deleteNoteById = async (req, res) => {
 
 exports.shareNote = async (req, res) => {
   try {
-    const user = await User.findOne({ id: req.body.user.id });
+    const user = await User.findById(req.body.user.id);
     if (!user) {
-      return res.json({ message: 'User not found' }).end();
+      return res.status(400).json({ message: 'User not found' }).end();
     }
-    const note = await Note.findOneAndUpdate({ id: req.params.id }, { 
-        $addToSet: { users: user._id  } 
+    const note = await Note.findByIdAndUpdate(req.params.id, { 
+      $addToSet: { users: req.body.user.id  } 
     });
-    
+
     if (note !== null) {
       res.status(204).end();
     } else {
@@ -88,10 +87,10 @@ exports.searchNotes = async (req, res) => {
       return res.status(400).json({ message: "Missing 'content' field in query parameters"});
     }
     const notes = await Note.find({ 
-      users: { $in: [req.user._id] }, 
+      users: { $in: [req.user.id] }, 
       $text: { $search:  searchTerm }
     });
-    res.json({ data: notes });
+    res.json({ note: notes });
   } catch (error) {
     console.log(error);
   }

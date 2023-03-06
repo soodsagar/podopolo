@@ -45,8 +45,8 @@ describe('Note Endpoints', () => {
         .send({ note: { content: "test note" } })
         .expect(200);
 
-      expect(response.body.data[0].id).toBeDefined();
-      noteId = response.body.data[0].id;
+      expect(response.body.note[0].id).toBeDefined();
+      noteId = response.body.note[0].id;
     });
   });
 
@@ -56,7 +56,8 @@ describe('Note Endpoints', () => {
         .get(`/api/notes/${noteId}`)
         .set('Authorization', `Bearer ${token}`)
         .expect(200);
-      expect(response.body.data[0].id).toBeDefined();
+
+      expect(response.body.note[0]._id).toBeDefined();
     });
   });
 
@@ -73,7 +74,7 @@ describe('Note Endpoints', () => {
           .set('Authorization', `Bearer ${token}`)
           .expect(200);
 
-        expect(response2.body.data[0].content).toBe('UPDATED test note');
+        expect(response2.body.note[0].content).toBe('UPDATED test note');
     });
   });
 
@@ -87,8 +88,7 @@ describe('Note Endpoints', () => {
             email: 'testuser2@test.com',
             password: 'testpassword2'
           }
-      })
-      
+      });
       const secondUserId = authRes.body.user.id;
 
       await request(server)
@@ -96,8 +96,6 @@ describe('Note Endpoints', () => {
         .set('Authorization', `Bearer ${token}`)
         .send({ user: { id: secondUserId } })
         .expect(204);
-
-        // TODO - validate that user exists before sharing
     });
   });
 
@@ -108,7 +106,7 @@ describe('Note Endpoints', () => {
         .set('Authorization', `Bearer ${token}`)
         .expect(200);
 
-      expect(response.body.data[0].id).toBeDefined();
+      expect(response.body.note[0]._id).toBeDefined();
     });
   });
 

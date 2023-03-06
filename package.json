@@ -8,7 +8,6 @@
     "express": "4.18.2",
     "express-jwt": "8.4.1",
     "jsonwebtoken": "9.0.0",
-    "loglevel": "1.8.1",
     "moment": "2.29.4",
     "mongoose": "7.0.0",
     "passport": "0.6.0",
@@ -30,7 +29,7 @@
     "start": "node index.js",
     "lint": "npx eslint . --ext .js",
     "lint:fix": "npx eslint . --ext .js --fix",
-    "test": "jest test/*.js  --verbose --forceExit --maxWorkers=1",
+    "test": "docker-compose up -d mongo redis; jest test/*.js  --verbose --forceExit --maxWorkers=1",
     "watch": "nodemon index.js"
   },
   "author": "Sagar Sood",
