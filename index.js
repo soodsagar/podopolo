@@ -23,8 +23,6 @@ app.get('*', function(req, res) {
   res.status(404).json({ message: "404: Not Found" });
 });
 
-app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}`);
-});
+const server = app.listen(PORT, () => console.log(`API listening at port ${PORT}`));
 
-module.exports = app;
+module.exports = server;

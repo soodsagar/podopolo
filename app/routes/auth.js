@@ -8,7 +8,7 @@ const passportOpts = { session: false };
 router.post('/auth/signup', passport.authenticate('signup', passportOpts),
   async (req, res, next) => {
     try {
-      res.status(201).end();
+      res.status(200).json({ user: { id: req.user.id } });
     } catch (error) {
       console.log(error);
     }

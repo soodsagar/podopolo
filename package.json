@@ -30,7 +30,7 @@
     "start": "node index.js",
     "lint": "npx eslint . --ext .js",
     "lint:fix": "npx eslint . --ext .js --fix",
-    "test": "jest test/*.test.js",
+    "test": "jest test/*.js  --verbose --forceExit --maxWorkers=1",
     "watch": "nodemon index.js"
   },
   "author": "Sagar Sood",

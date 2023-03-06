@@ -31,7 +31,7 @@ exports.getNotes = async (req, res) => {
 exports.getNoteById = async (req, res) => {
   try {
     const note = await Note.findOne({ id: req.params.id });
-    res.json({ data: note });
+    res.json({ data: [ note ] });
   } catch (error) {
     console.log(error);
   }
@@ -55,7 +55,7 @@ exports.updateNoteById = async (req, res) => {
 exports.deleteNoteById = async (req, res) => {
   try {
     const note = await Note.deleteOne({ id: req.params.id });
-    res.status(201).end();
+    res.status(204).end();
   } catch (error) {
     console.log(error);
   }
