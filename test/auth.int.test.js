@@ -36,7 +36,7 @@ describe('Authentication Endpoints', () => {
           email: 'testuser@test.com',
           password: 'testpassword'
         }
-      })
+      });
 
     const response = await request(server)
       .post('/api/auth/login')

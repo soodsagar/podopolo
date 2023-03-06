@@ -2,7 +2,7 @@
 [Backend Exercise]
 This is a **Node/Express** application that uses **MongoDB** for data storage. The application has endpoints to create, read, update, and delete notes for authenticated users. The user authentication is done using **JSON Web Tokens** (JWT). The application also has rate limiting capability using a **Redis** cache layer. 
 
-The app is far from perfect, but handles all requirements for this assessment. See the Improvements section for some of my recommendations on how I could improve this app in the future. 
+The app is far from perfect, but handles all requirements for this assessment. See the **Future Improvements** section for some of my recommendations on how I could improve this app in the future. 
 
 
 # Features
@@ -25,15 +25,20 @@ Docker was used to run the service and its dependencies in containers. There are
 Although MongoDB provides ObjectId by default, I am using another ID. The benefit of using this is that it's globally unique, assisting in any potential future migrations or ID conflicts. It's also slightly more secure are it doesn't expose the MongoDB ObjectId, which can give out certain information about the database if exposed. 
 
 ## Security
-TODO
+
+THe authentication system consists of a email/password flow. The `UserSchema.methods.setPassword()` method is a function that sets a password for a user in a Node.js application.
+This function takes a `password` parameter as input, which is the plain text password entered by the user. It then generates a random `salt` value, which is used to strengthen the security of the password. The `pbkdf2Sync()` function is then used to create a hash of the password, using the `salt` value, 10000 iterations, a key length of 512, and the SHA512 algorithm. The resulting `hash` is then saved to the hash property of the UserSchema object. When the user logs in, it finds the user by email, and takes the password from request, cretes a hash and compares against the hash in the record. This way its always comparing the hashes, never the true password. 
+
+This function is useful for security because it protects user passwords from being stored in plain text. Instead, it stores a hashed version of the password that cannot be reversed back to the original plain text password. Even the database owner cannot get access to real passwords. Additionally, the use of a random salt value and a large number of iterations makes it more difficult for attackers to crack the password using brute force attacks or rainbow tables. Overall, this function helps to ensure that user passwords are stored securely and cannot be easily compromised.
 
 ## Installation
 ### Requirements
-* Node 
+* [Node](https://nodejs.org/en/download/)
   * this app was built on Node v16.18.1
-* NPM 
-* Docker
-* Docker-compose
+* [NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+* [Docker](https://docs.docker.com/get-docker/)
+* [Docker-compose](https://dockerlabs.collabnix.com/intermediate/workshop/DockerCompose/How_to_Install_Docker_Compose.html)
+* [Jest](https://www.npmjs.com/package/jest)
 
 ### Install & Run
 After installing the above requirements, follow the procedure below. 
@@ -47,6 +52,13 @@ Run `docker ps` to make sure all 3 services are running.
 
 The API should now be exposed on port `4000`. You can access the API at `localhost:4000` or `http://127.0.01:4000`
 
+### Install & Run
+To run tests using Jest, run the following command:
+```
+npm test
+OR
+npm run test
+```
 ## Endpoints
 ### Authentication
 
@@ -272,7 +284,7 @@ Response
 HTTP 204 No Content
 ```
 
-## Improvements
+## Future Improvements
 
 There are definitely a few things that I would like to improve in the future that can make this app more scalable, organized and efficient. 
 * Use an internal ID system (like UUID) instead of MongoDB's default ObjectID. It would be slightly more secure, platform agnostic and assist with any potential future migrations.
