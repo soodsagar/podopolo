@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
 const Note = mongoose.model('Note');
-const uuid = require('uuid');
-const rateLimiter = require('../middleware/rateLimiter');
 
 exports.createNote = async (req, res) => {
   try {
@@ -30,7 +28,12 @@ exports.getNotes = async (req, res) => {
 exports.getNoteById = async (req, res) => {
   try {
     const note = await Note.findById(req.params.id);
-    res.json({ note: [ note ] });
+    if (note !== null) {
+      res.json({ note: [ note ] });
+    } else {
+      res.status(400).json({ message: 'Note not found' }).end()
+    }
+
   } catch (error) {
     console.log(error);
   }
@@ -44,7 +47,7 @@ exports.updateNoteById = async (req, res) => {
     if (note !== null) {
       res.status(204).end();
     } else {
-      res.status(500).json({ message: 'Resource not updated' }).end()
+      res.status(400).json({ message: 'Resource not updated' }).end()
     }
   } catch (error) {
     console.log(error);

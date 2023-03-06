@@ -59,6 +59,13 @@ describe('Note Endpoints', () => {
 
       expect(response.body.note[0]._id).toBeDefined();
     });
+
+    test('should return an error if the user tries to get a note that does not exist', async () => {
+      await request(server)
+        .get(`/api/notes/94065d09d98d293e9a3fbdc0`) // fake id
+        .set('Authorization', `Bearer ${token}`)
+        .expect(400);
+    });
   });
 
   describe('PUT /api/notes/:id', () => {
@@ -75,6 +82,14 @@ describe('Note Endpoints', () => {
           .expect(200);
 
         expect(response2.body.note[0].content).toBe('UPDATED test note');
+    });
+
+    test('should return an error if the user tries to update a note that does not exist', async () => {
+      await request(server)
+        .put(`/api/notes/94065d09d98d293e9a3fbdc0`) // fake id
+        .set('Authorization', `Bearer ${token}`)
+        .send({ note: { content: 'UPDATED test note' }})
+        .expect(400);
     });
   });
 
@@ -97,16 +112,33 @@ describe('Note Endpoints', () => {
         .send({ user: { id: secondUserId } })
         .expect(204);
     });
+
+    test('should return an error if the user tries to share a note with another user that does not exist', async () => {
+      await request(server)
+        .post(`/api/notes/${noteId}/share`)
+        .set('Authorization', `Bearer ${token}`)
+        .send({ user: { id: "94065d09d98d293e9a3fbdc0" } }) // fake id
+        .expect(400);
+    });
   });
 
   describe('GET /api/search', () => {
-    test('search for notes based on keywords for the authenticated user', async () => {
+    test('should search for notes based on keywords for the authenticated user', async () => {
       const response = await request(server)
         .get(`/api/search?content=note`)
         .set('Authorization', `Bearer ${token}`)
         .expect(200);
 
       expect(response.body.note[0]._id).toBeDefined();
+    });
+
+    test('should not return any notes if keyword does not match', async () => {
+      const response = await request(server)
+        .get(`/api/search?content=NOMATCH`)
+        .set('Authorization', `Bearer ${token}`)
+        .expect(200);
+
+      expect(response.body.note.length).toBe(0);
     });
   });
 
