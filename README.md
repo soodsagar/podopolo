@@ -21,9 +21,6 @@ Jest is used for unit and integration testing. It's easy to setup with Node/Expr
 ### Docker
 Docker was used to run the service and its dependencies in containers. There are three containers; the Node/Express API, MongoDB and Redis. Each container is isolated from other containers and the host machine, which means that an issue in one container will not affect other containers or the host machine.  Additionally, for ease of use, the containers can be spun up and setup easily without configuring each component, which might also differ from environment to environment. 
 
-### UUID
-Although MongoDB provides ObjectId by default, I am using another ID. The benefit of using this is that it's globally unique, assisting in any potential future migrations or ID conflicts. It's also slightly more secure are it doesn't expose the MongoDB ObjectId, which can give out certain information about the database if exposed. 
-
 ## Security
 
 The authentication system consists of a email/password flow. The `UserSchema.methods.setPassword()` method is a function that sets a password for a user in a Node.js application.
