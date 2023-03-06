@@ -1,6 +1,11 @@
-version: '3'
+version: "3.9"
+networks:
+  default:
+    driver: bridge
+  external:
+    name: default
 services:
-  app:
+  api:
     image: node:16
     command: bash -c "npm start"
     restart: unless-stopped
@@ -9,19 +14,25 @@ services:
     working_dir: /usr/src/app
     ports:
       - '4000:4000'
-    links:
-      - mongo
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/podopolo
+      - REDIS_URI=redis://redis:6379
+    depends_on:
+      redis:
+        condition: service_started
+      mongo:
+        condition: service_started
   mongo:
     restart: unless-stopped
     image: mongo
     ports:
       - '27017:27017'
   redis:
-    image: 'bitnami/redis:latest'
+    image: redis:latest
     restart: always
     ports:
       - '6379:6379'
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
     networks:
-      - app-network
+      - default

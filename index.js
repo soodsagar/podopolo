@@ -5,10 +5,10 @@ const { rateLimit } = require('./app/middleware');
 const { connectDB } = require('./app/config');
 
 const app = express();
-const PORT = process.env.PORT || 4001;
+const PORT = process.env.PORT || 4000;
 
-require('./app/models/User');
-require('./app/models/Note');
+require('./app/models/User.model');
+require('./app/models/Note.model');
 require('./app/middleware/passport');
 
 connectDB();
@@ -20,9 +20,11 @@ app.use('/api', require('./app/routes'));
 
 // Handle 404
 app.get('*', function(req, res) {
-    res.status(404).json({ message: "404: Not Found" });
+  res.status(404).json({ message: "404: Not Found" });
 });
 
 app.listen(PORT, () => {
-    console.log(`App listening on port ${PORT}`);
+  console.log(`App listening on port ${PORT}`);
 });
+
+module.exports = app;

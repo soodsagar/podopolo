@@ -1,7 +1,4 @@
 const router = require('express').Router();
-const mongoose = require('mongoose');
-const uuid = require('uuid');
-const User = mongoose.model('User');
 const passport = require('passport');
 const passportOpts = { session: false };
 
