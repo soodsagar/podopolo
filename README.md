@@ -2,7 +2,7 @@
 [Backend Exercise]
 This is a **Node/Express** application that uses **MongoDB** for data storage. The application has endpoints to create, read, update, and delete notes for authenticated users. The user authentication is done using **JSON Web Tokens** (JWT). The application also has rate limiting capability using a **Redis** cache layer. 
 
-The app is far from perfect, but handles all requirements for this assessment. See the **Future Improvements** section for some of my recommendations on how I could improve this app in the future. 
+The app is far from perfect, but handles all requirements for this assessment. See the [Future Improvements](#future-improvements) section for some of my recommendations on how I could improve this app in the future. 
 
 
 # Features
@@ -26,7 +26,7 @@ Although MongoDB provides ObjectId by default, I am using another ID. The benefi
 
 ## Security
 
-THe authentication system consists of a email/password flow. The `UserSchema.methods.setPassword()` method is a function that sets a password for a user in a Node.js application.
+The authentication system consists of a email/password flow. The `UserSchema.methods.setPassword()` method is a function that sets a password for a user in a Node.js application.
 This function takes a `password` parameter as input, which is the plain text password entered by the user. It then generates a random `salt` value, which is used to strengthen the security of the password. The `pbkdf2Sync()` function is then used to create a hash of the password, using the `salt` value, 10000 iterations, a key length of 512, and the SHA512 algorithm. The resulting `hash` is then saved to the hash property of the UserSchema object. When the user logs in, it finds the user by email, and takes the password from request, cretes a hash and compares against the hash in the record. This way its always comparing the hashes, never the true password. 
 
 This function is useful for security because it protects user passwords from being stored in plain text. Instead, it stores a hashed version of the password that cannot be reversed back to the original plain text password. Even the database owner cannot get access to real passwords. Additionally, the use of a random salt value and a large number of iterations makes it more difficult for attackers to crack the password using brute force attacks or rainbow tables. Overall, this function helps to ensure that user passwords are stored securely and cannot be easily compromised.
